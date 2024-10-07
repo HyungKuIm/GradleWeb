@@ -1,0 +1,50 @@
+//언어
+apply plugin: 'java'
+apply plugin: 'war'
+
+//JDK 버전 설정
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+//라이브러리 저장소
+repositories {
+    jcenter()
+}
+
+//인코딩
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+
+//의존성 : 외부라이브러리
+dependencies {
+	testCompile fileTree(dir: 'WebContent/WEB-INF/lib', include: ['*.jar'])
+	compile fileTree(dir: 'lib', include: ['*.jar'])
+	compile 'ch.qos.logback:logback-classic:1.2.2'
+	compile 'org.springframework:spring-context:5.3.26'
+	compile 'org.springframework:spring-webmvc:5.3.26'
+	compile 'org.springframework:spring-aop:5.3.26'
+	compile 'org.springframework:spring-aspects:5.3.26'
+	compile 'org.springframework:spring-tx:5.3.26'
+	compile 'org.springframework:spring-jdbc:5.3.26'
+    compile 'org.slf4j:slf4j-api:1.7.25'
+    compile 'javax:javaee-web-api:7.0'
+    compile 'org.hibernate:hibernate-validator:5.4.3.Final'
+    implementation 'org.apache.commons:commons-dbcp2:2.9.0'
+    // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
+	implementation 'com.mysql:mysql-connector-j:8.3.0'
+	// https://mvnrepository.com/artifact/org.mybatis/mybatis
+	implementation 'org.mybatis:mybatis:3.5.6'
+	// https://mvnrepository.com/artifact/org.mybatis/mybatis-spring
+	implementation 'org.mybatis:mybatis-spring:2.0.3'
+	
+    
+}
+
+// 프로젝트 폴더이름
+//war 설정
+project.webAppDirName = 'WebContent'
+war {
+	archiveName = "${baseName}.${extension}"
+}
